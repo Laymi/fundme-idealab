@@ -1,0 +1,45 @@
+template(name='Students')
+  #students
+    h3 Students
+
+    if students
+      h5 Showing Studentlist
+
+      table
+        thead
+          tr
+            th ID
+            th First Name
+            th Last Name
+            th Workload
+            th ExemptionStatus
+            th Delete/Edit
+        tbody
+            tr
+              td
+                a(class='waves-effect waves-light btn', id='addNewStudent') Add new
+                input(type="text",id="_id", style="display:none")
+              td
+                input(type="text",id="first_name")
+              td
+                input(type="text",id="last_name")
+              td
+                input(type="text",id="workload", disabled)
+              td
+                input(type="text",id="exemptionStatus")
+              td
+          each students
+            tr
+              td
+                span(id="{{_id}}-_id") {{_id}}
+              td
+                span(id="{{_id}}-first_name") {{first_name}}
+              td
+                span(id="{{_id}}-last_name") {{last_name}}
+              td
+                span(id="{{_id}}-workload") {{workload}}
+              td
+                span(id="{{_id}}-exemptionStatus") {{exemptionStatus}}
+              td
+                a(class='waves-effect waves-light btn deletebtn', name='{{_id}}') Delete
+                a(class='waves-effect waves-light btn editbtn', name='{{_id}}') Edit
