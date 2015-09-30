@@ -1,4 +1,17 @@
 template(name='Home')
-  #home
-    if participants
-      {{> reactiveTable settings=settings}}
+  #home(style="text-align: center;")
+    if currentUser
+      #search(style="width: 300px; margin-left: auto; margin-right: auto")
+        a(style='font-size: 140%') You were founded with $ 0.00
+        input(type="text" id="searchInput" placeholder="Search" style="width: 300px;")
+        ul(style="position: fixed; background-color:white; border: 1px solid")
+          each candidate
+            li.collection-item(style='float:none; width: 300px;')
+              a(class="userInList" name="{{_id}}") {{name}}
+        input(type="text" id="amountInput" placeholder="Amount" style="width: 300px;")
+      br
+      button(class="btn fundSomeone") Fund
+    else
+      a(class='waves-effect waves-light btn', id='login', href='{{pathFor "login"}}') Login
+template(name='modal')
+  h3 test

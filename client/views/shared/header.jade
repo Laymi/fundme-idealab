@@ -9,10 +9,6 @@ template(name='Header')
         ul.right
           if currentUser
             .nav-commands.center
-              a(style='text-align: center; font-size: 170%') {{myBalance}}
-            li
-              a(class='waves-effect waves-light btn', id='logout') Logout
-
-          else
-            li
-              a(class='waves-effect waves-light btn', id='login', href='{{pathFor "login"}}') Login
+              div
+                a(style='float: right; font-size: 170%') $ {{myBalance}},00
+              

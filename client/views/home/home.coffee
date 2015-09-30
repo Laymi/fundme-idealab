@@ -11,7 +11,11 @@ Template.Home.helpers
     fields: [
         'name',
         'company',
-        'funding',
+        {
+          key: 'funding',
+          label: 'Funding',
+          fn: (value) -> '$ '+value+',00'
+        },
         {
           key: '_id',
           label: 'Fund him/her',
@@ -19,15 +23,41 @@ Template.Home.helpers
         }
     ]
 
+  settingsLoggedOut: ->
+    collection: Participants.find(),
+    rowsPerPage: 10,
+    showFilter: true,
+    fields: ['name','company','funding']
+
   userId: ->
     Router?.current()?.params?._id
 
+  candidate: ->
+    Session.get('possibleParticipants')
+
+  setUser: ->
+    console.log 'testasd'
+
 Template.Home.events
-  'click .fundSomeone': (event) ->
+  'click .userInList': (event) ->
+    selectedParticipant = Participants.findOne(event.target.name)
+    document.getElementById("searchInput").value = selectedParticipant.name
+    document.getElementById("searchInput").name = selectedParticipant._id
+    Session.set('possibleParticipants', undefined)
     console.log 'test', event.target.name
-    targetId = event.target.name
-    MaterializeModal.prompt
-      message: 'With how much do you want to fund him/her'
-      callback: (yesNo, rtn, event) ->
-          if yesNo
-            Meteor.call 'fundUser', Meteor.userId(), targetId, rtn
+
+  'keyup #searchInput': (event) ->
+    console.log 'modified'
+
+  'keyup input': (event, template) ->
+    if event.target.value != ''
+      search = new RegExp(event.target.value, 'i');
+      possibleParticipants = Participants.find("name": search).fetch()
+      Session.set('possibleParticipants', possibleParticipants)
+    else
+      Session.set('possibleParticipants', undefined)
+
+  'click .fundSomeone': (event) ->
+    console.log 'test', document.getElementById("searchInput").name
+    targetId = document.getElementById("searchInput").name
+    Meteor.call 'fundUser', Meteor.userId(), targetId, document.getElementById("amountInput").value
