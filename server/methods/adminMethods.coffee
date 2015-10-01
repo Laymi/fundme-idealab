@@ -17,4 +17,4 @@ Meteor.methods
       email: 'test1337@test.test'
       password: 'test1234'
 
-    console.log 'test@test.de', 'test1234'
+    console.log 'test1337@test.test', 'test1234'

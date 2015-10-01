@@ -2,8 +2,8 @@ template(name='Home')
   #home(style="text-align: center;")
     if currentUser
       #search(style="width: 300px; margin-left: auto; margin-right: auto")
-        a(style='font-size: 140%') You were founded with $ 0.00
-        input(type="text" id="searchInput" placeholder="Search" style="width: 300px;")
+        a(style='font-size: 140%; margin-bottom: 30px;') You were founded with $ 0.00
+        input(type="text" id="searchInput" placeholder="Search" style="width: 300px; margin-top:20px;")
         ul(style="position: fixed; background-color:white; border: 1px solid")
           each candidate
             li.collection-item(style='float:none; width: 300px;')
